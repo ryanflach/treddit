@@ -20,11 +20,11 @@
   }
 
   .user-info {
-    margin-top: 50px;
     background-color: lightblue;
     display: block;
     text-align: center;
     margin-left: 80%;
+    margin-bottom: -50px;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
   }
@@ -38,5 +38,19 @@
   }
 
   .intro-content {
-    margin-top: 20%;
+    margin-top: 15%;
+  }
+
+  .alert {
+    margin-top: 50px;
+  }
+
+  .page-content {
+    margin-top: 50px;
+    margin-bottom: 25px;
+  }
+
+  .img-rounded {
+    width: 75px;
+    height: 50px;
   }
