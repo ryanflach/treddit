@@ -16,11 +16,6 @@
         <%= sanitize(message) %>
       </div>
     <% end %>
-    <% if current_user %>
-      <div class="user-info">
-        <p class="user"><%= current_user.username %> (<%= current_user.link_karma %> :: <%= current_user.comment_karma %>) || <%= link_to "logout", logout_path, method: :delete %></p>
-      </div>
-    <% end %>
     <div class="container">
       <%= yield %>
     </div>
