@@ -1,4 +1,4 @@
-class RedditService
+class RedditAuthService
   attr_reader :params
 
   def initialize(params)

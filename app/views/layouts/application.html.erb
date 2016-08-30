@@ -9,6 +9,20 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= render partial: 'shared/navbar' %>
+    <% flash.each do |type, message| %>
+      <div class="alert alert-<%= type %> alert-dismissible text-center" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <%= sanitize(message) %>
+      </div>
+    <% end %>
+    <% if current_user %>
+      <div class="user-info">
+        <p class="user"><%= current_user.username %> (<%= current_user.link_karma %> :: <%= current_user.comment_karma %>) || <%= link_to "logout", logout_path, method: :delete %></p>
+      </div>
+    <% end %>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

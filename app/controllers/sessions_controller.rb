@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(username: @user_data[:username])
     user ? user.update(@user_data) : user = User.create!(@user_data)
-    session[:current_user] = user
+    session[:user_id] = user.id
     flash[:success] = "Successfully logged in!"
     redirect_to root_path
   end
@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
 
   def process_auth_response
     if params[:code] && RandomString.last.word == params[:state]
-      @user_data = RedditService.new(params).prepare_user
+      @user_data = RedditAuthService.new(params).prepare_user
       create
     elsif params[:error]
       flash[:danger] = "Error: #{params[:error]}"
@@ -40,6 +40,6 @@ class SessionsController < ApplicationController
       "state=#{random_string}&" \
       "redirect_uri=http://127.0.0.1:3000/auth/reddit/callback&" \
       "duration=temporary&" \
-      "scope=identity mysubreddits"
+      "scope=identity mysubreddits read vote"
   end
 end

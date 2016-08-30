@@ -1,5 +1,8 @@
-<% if current_user %>
-  <%= link_to "Logout", logout_path, method: :delete %>
-<% else %>
-  <%= link_to "Login with Reddit", login_path %>
+<% unless current_user %>
+  <center><div class="well col-md-6 col-md-offset-3 intro-content">
+    <h1>Welcome to T-Reddit!</h1>
+    <p>
+      T-Reddit is a version of Reddit that features limited functionality and a purple T-Rex. <%= link_to "Log in", login_path %> with your Reddit account to get started!
+    </p>
+  </div></center>
 <% end %>
