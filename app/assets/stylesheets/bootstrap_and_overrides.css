@@ -38,9 +38,19 @@
   }
 
   .intro-content {
-    margin-top: 20%;
+    margin-top: 15%;
   }
 
   .alert {
     margin-top: 50px;
+  }
+
+  .page-content {
+    margin-top: 50px;
+    margin-bottom: 25px;
+  }
+
+  .img-rounded {
+    width: 75px;
+    height: 50px;
   }

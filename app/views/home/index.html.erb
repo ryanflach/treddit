@@ -1,8 +1,16 @@
-<% unless current_user %>
-  <center><div class="well col-md-6 col-md-offset-3 intro-content">
+<center><div class="well col-md-6 col-md-offset-3 intro-content">
+  <% if current_user %>
+    <h1>Welcome, <%= current_user.username %>!</h1>
+    <p>
+      Use the drop-down menu in the navbar to view the hottest 15 current posts in one of your subscribed subreddits.
+    </p>
+    <p>
+      And of course, enjoy the T-Rex (we assume it's why you're here).
+    </p>
+  <% else %>
     <h1>Welcome to T-Reddit!</h1>
     <p>
       T-Reddit is a version of Reddit that features limited functionality and a purple T-Rex. <%= link_to "Log in", login_path %> with your Reddit account to get started!
     </p>
-  </div></center>
-<% end %>
+  <% end %>
+</div></center>

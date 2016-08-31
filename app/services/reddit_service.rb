@@ -1,6 +1,5 @@
 class RedditService
   def initialize(token)
-    @token = token
     @connection = Faraday.new("https://oauth.reddit.com/")
     @connection.headers["Authorization"] = "bearer #{token}"
   end
@@ -11,8 +10,8 @@ class RedditService
   end
 
   def get_subreddit(name)
-    response = @connection.get()
-    parse(response.body)
+    response = @connection.get("r/#{name}/hot?limit=15")
+    parse(response.body)[:data][:children]
   end
 
   private

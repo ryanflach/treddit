@@ -9,7 +9,7 @@ class Subreddit < OpenStruct
   end
 
   def self.find_by_name(name, current_user)
-    subreddit_hash = service(current_user).get_subreddit(name)
-    Subreddit.new(subreddit_hash)
+    # returns 15 'hot' post objects
+    service(current_user).get_subreddit(name)[0..14]
   end
 end
