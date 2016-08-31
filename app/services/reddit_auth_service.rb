@@ -13,7 +13,7 @@ class RedditAuthService
   private
 
   def set_token
-    @token = request_user_token
+    request_user_token
     RandomString.destroy_all
     set_user_information
   end
@@ -42,7 +42,7 @@ class RedditAuthService
         "redirect_uri"  => "http://127.0.0.1:3000/auth/reddit/callback"
       }
     end
-    JSON.parse(response.body)["access_token"]
+    @token = JSON.parse(response.body)["access_token"]
   end
 
   def request_user_information
