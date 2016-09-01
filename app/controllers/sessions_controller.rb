@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
   def create
-    user = User.find_by(username: @user_data[:username])
-    user ? user.update(@user_data) : user = User.create!(@user_data)
+    user = User.process_reddit_user(@user_data)
     session[:user_id] = user.id
     flash[:success] = "Successfully logged in!"
     redirect_to root_path

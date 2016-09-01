@@ -14,7 +14,7 @@ class Subreddit
 
   def self.find_posts_by_name(name, current_user)
     # returns 15 'hot' post objects
-    service(current_user).get_subreddit(name)[0..14]
+    service(current_user).get_subreddit(name).take(15)
   end
 
   def display_name
