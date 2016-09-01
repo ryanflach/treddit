@@ -6,25 +6,20 @@ class RedditAuthService
   end
 
   def prepare_user
-    set_token
+    RandomString.destroy_all
     set_user_information
   end
 
   private
 
-  def set_token
-    request_user_token
-    RandomString.destroy_all
-    set_user_information
-  end
-
   def set_user_information
-    parsed = request_user_information
+    token = request_user_token
+    parsed = request_user_information(token)
     {
       username: parsed["name"],
       link_karma: parsed["link_karma"],
       comment_karma: parsed["comment_karma"],
-      token: @token
+      token: token
     }
   end
 
@@ -42,13 +37,13 @@ class RedditAuthService
         "redirect_uri"  => "http://127.0.0.1:3000/auth/reddit/callback"
       }
     end
-    @token = JSON.parse(response.body)["access_token"]
+    JSON.parse(response.body)["access_token"]
   end
 
-  def request_user_information
+  def request_user_information(token)
     raw = Faraday.get("https://oauth.reddit.com/api/v1/me") do |req|
-      req.headers['Authorization'] = "bearer #{@token}"
+      req.headers['Authorization'] = "bearer #{token}"
     end
-    JSON.parse(raw.body)
+    data = JSON.parse(raw.body)
   end
 end
