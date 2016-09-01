@@ -6,8 +6,8 @@ class Post
     @subreddit = params[:subreddit]
   end
 
-  def self.all(subreddit, current_user)
-    subreddit_posts = Subreddit.find_posts_by_name(subreddit, current_user)
+  def self.all(name, current_user)
+    subreddit_posts = Subreddit.find_posts_by_name(name, current_user)
     subreddit_posts.map { |post| Post.new(post[:data]) }
   end
 
