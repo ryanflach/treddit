@@ -9,11 +9,11 @@
     </thead>
     <tbody>
       <% @posts.each_with_index do |post, index| %>
-        <tr>
-          <td class="text-center"><%= index + 1 %></td>
-          <td class="text-center"><%= post.score %></td>
-          <td><%= link_to post.title, post.url %></td>
-          <td class="text-center"><%= link_to post.num_comments, post.comments_url %></td>
+        <tr id="post-<%= index + 1 %>">
+          <td class="text-center post_num"><%= index + 1 %></td>
+          <td class="text-center post_score"><%= post.score %></td>
+          <td class="post_title"><%= link_to post.title, post.url %></td>
+          <td class="text-center post_num_comments"><%= link_to post.num_comments, post.comments_url %></td>
         </tr>
       <% end %>
     </tbody>
