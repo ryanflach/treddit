@@ -4,7 +4,7 @@ class Subreddit
   end
 
   def self.service(current_user)
-    @@service ||= RedditService.new(current_user.token)
+    RedditService.new(current_user.token)
   end
 
   def self.all(current_user)

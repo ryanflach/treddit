@@ -7,7 +7,10 @@ RSpec.feature "Subreddit show page" do
       VCR.use_cassette("subreddit_show") do
         refresh_user_token
         user = create_user
-        post = first_post
+        # Without a cassette - this test will fail the first time
+        if File.exist?('spec/vcr_cassettes/subreddit_show.yml')
+          post = first_post
+        end
 
         allow_any_instance_of(ApplicationController).
           to receive(:current_user).
@@ -41,31 +44,10 @@ RSpec.feature "Subreddit show page" do
 
   context "guest" do
     scenario "they visit /r/programming" do
-      VCR.use_cassette("subreddit_show") do
-        visit '/r/programming'
+      visit '/r/programming'
 
-        post = first_post
-
-        expect(current_path).to eq('/r/programming')
-        expect(page).to have_content('Hot 15 in /r/programming')
-        expect(page).to have_css("tr#post-15")
-        expect(page).to_not have_css("tr#post-16")
-
-        within("#post-1") do
-          within('.post_num') do
-            expect(page).to have_content(1)
-          end
-          within('.post_score') do
-            expect(page).to have_content(post[:score])
-          end
-          within('.post_title') do
-            expect(page).to have_link(post[:title])
-          end
-          within('.post_num_comments') do
-            expect(page).to have_link(post[:num_comments])
-          end
-        end
-      end
+      expect(page).to have_content("Please login to use this site.")
+      expect(current_path).to eq(root_path)
     end
   end
 end
