@@ -22,3 +22,12 @@ def update_yml_file(new_token)
     YAML.dump(data, f)
   end
 end
+
+def create_user
+  User.create!(
+    username: "test",
+    link_karma: 300,
+    comment_karma: 500,
+    token: ENV['REDDIT_TOKEN']
+  )
+end

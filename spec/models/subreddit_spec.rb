@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'services_spec_helper'
+require 'reddit_services_spec_helper'
 
 describe Subreddit do
   it "gets a users subreddits" do

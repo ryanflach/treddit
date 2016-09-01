@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'services_spec_helper'
+require 'reddit_services_spec_helper'
 
 describe RedditService do
   context '#subreddits' do
