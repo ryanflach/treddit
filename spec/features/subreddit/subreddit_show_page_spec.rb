@@ -25,8 +25,15 @@ RSpec.feature "Subreddit show page" do
           within('.post_num') do
             expect(page).to have_content(1)
           end
-          within('.')
-          expect(page).to have_content()
+          within('.post_score') do
+            expect(page).to have_content(post[:score])
+          end
+          within('.post_title') do
+            expect(page).to have_link(post[:title])
+          end
+          within('.post_num_comments') do
+            expect(page).to have_link(post[:num_comments])
+          end
         end
       end
     end
@@ -37,8 +44,27 @@ RSpec.feature "Subreddit show page" do
       VCR.use_cassette("subreddit_show") do
         visit '/r/programming'
 
+        post = first_post
+
         expect(current_path).to eq('/r/programming')
         expect(page).to have_content('Hot 15 in /r/programming')
+        expect(page).to have_css("tr#post-15")
+        expect(page).to_not have_css("tr#post-16")
+
+        within("#post-1") do
+          within('.post_num') do
+            expect(page).to have_content(1)
+          end
+          within('.post_score') do
+            expect(page).to have_content(post[:score])
+          end
+          within('.post_title') do
+            expect(page).to have_link(post[:title])
+          end
+          within('.post_num_comments') do
+            expect(page).to have_link(post[:num_comments])
+          end
+        end
       end
     end
   end
@@ -47,7 +73,8 @@ end
 def first_post
   page = YAML.load_file("spec/vcr_cassettes/subreddit_show.yml")
   posts = JSON.parse(
-    page["http_interactions"].last["response"]["body"]["string"]
+    page["http_interactions"].third["response"]["body"]["string"],
+    symbolize_names: true
   )
-  posts["data"]["children"].first["data"]
+  posts[:data][:children].first[:data]
 end
