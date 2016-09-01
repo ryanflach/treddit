@@ -14,7 +14,6 @@ class SessionsController < ApplicationController
   end
 
   def reddit_user_auth
-    random_string = RandomString.create(word: Faker::Lorem.word).word
     redirect_to reddit_login(random_string)
   end
 
@@ -41,5 +40,9 @@ class SessionsController < ApplicationController
       "redirect_uri=http://127.0.0.1:3000/auth/reddit/callback&" \
       "duration=temporary&" \
       "scope=identity mysubreddits read vote"
+  end
+
+  def random_string
+    RandomString.create(word: Faker::Lorem.word).word
   end
 end
