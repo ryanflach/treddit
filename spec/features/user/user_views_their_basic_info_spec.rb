@@ -6,7 +6,7 @@ RSpec.feature "User views their basic info" do
     scenario "they visit the root path" do
       VCR.use_cassette("user_subreddits") do
         refresh_user_token
-        user = create_user
+        user = create(:user)
 
         allow_any_instance_of(ApplicationController).
           to receive(:current_user).
@@ -25,7 +25,7 @@ RSpec.feature "User views their basic info" do
 
   context "guest" do
     scenario "they visit the root path" do
-      user = create_user
+      user = create(:user)
 
       visit '/'
 

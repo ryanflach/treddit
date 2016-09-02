@@ -6,7 +6,7 @@ RSpec.feature "User views their subreddits" do
     scenario "they visit the root path" do
       VCR.use_cassette("user_subreddits") do
         refresh_user_token
-        user = create_user
+        user = create(:user)
         allow_any_instance_of(ApplicationController).
           to receive(:current_user).
           and_return(user)

@@ -6,7 +6,7 @@ RSpec.feature "Subreddit show page" do
     scenario "they visit the root path" do
       VCR.use_cassette("subreddit_show") do
         refresh_user_token
-        user = create_user
+        user = create(:user)
         # Without a cassette - this test will fail the first time
         if File.exist?('spec/vcr_cassettes/subreddit_show.yml')
           post = first_post
